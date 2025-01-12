@@ -50,6 +50,8 @@ class ProfileController extends Controller
             $user->profilePicture = $path;
         }
 
+        
+
         // Save the updated profile
         $user->save();
 
