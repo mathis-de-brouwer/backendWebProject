@@ -7,27 +7,90 @@
 <a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
 </p>
 
-# Laravel backend Project
 
-## Setup Instructions
-1. Clone the repository
-2. Run `composer install`
-3. Run `npm install`
-4. Copy `.env.example` to `.env`
-5. Generate app key: `php artisan key:generate`
-6. Run migrations: `php artisan migrate`
-7. Start development server: `php artisan serve`
+
+# BackendWeb Project: News & FAQ Portal
 
 ## About
-[Your project description]
+This is a Laravel-based web application that provides a news portal with user management, FAQ system, and contact functionality. The project is built using Laravel 11 and includes features like user authentication, admin controls, news management, and a categorized FAQ system.
+
+## Setup Instructions
+
+1. Clone the repository:
+
+    git clone <your-repository-url>
+    cd <project-directory>
+
+2. Install PHP dependencies:
+
+    composer install
+
+3. Install NPM dependecies:
+
+    npm install
+
+4. .env Setup
+
+    cp .env.example .env
+    php artisan key:generate
+
+5. Configure your database in .env:
+
+    DB_CONNECTION=mysql
+    DB_HOST=127.0.0.1
+    DB_PORT=3306
+    DB_DATABASE=your_database_name
+    DB_USERNAME=your_username
+    DB_PASSWORD=your_password
+
+6. Run migrations and seed database:
+
+    php artisan migrate:fresh --seed
+
+7. Link storage:
+
+    php artisan storage:link
+
+8. Start the development servers:
+
+    npm run dev
+    php artisan serve
+
+
 
 ## Features
-- Feature 1
-- Feature 2
-...
+#   #User Authentication
+    Login/Register
+    Password Reset
+    Remember Me
+#   # User Management
+    Public Profile Pages
+    Profile Editing
+    Admin User Management
+#   # News System
+    News Article Creation/Management
+    Image Upload Support
+#   # FAQ System
+    Categorized Q&A
+    Admin Management Interface
+#   # Contact System
+    Contact Form
+    Admin Email Notifications
 
-## References
-[Your sources and references]
+## Technologies Used
+    Laravel 11
+    Tailwind CSS
+    Alpine.js
+    MySQL/SQLite
+    Laravel Breeze
+
+## References & Credits
+    Laravel Documentation
+    Tailwind CSS
+    Alpine.js
+    Laravel Breeze
+
+
 
 ## License
 
