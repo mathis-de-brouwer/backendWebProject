@@ -85,10 +85,10 @@ This is a Laravel-based web application that provides a news portal with user ma
     Laravel Breeze
 
 ## References & Credits
-    Laravel Documentation
-    Tailwind CSS
-    Alpine.js
-    Laravel Breeze
+[Laravel Documentation](https://laravel.com/docs)
+[Tailwind CSS](https://tailwindcss.com/)
+[Alpine.js](https://alpinejs.dev/)
+[Laravel Breeze](https://laravel.com/docs/starter-kits#laravel-breeze)
 
 
 
