@@ -61,9 +61,6 @@
                 <div class="p-6">
                     <div class="flex justify-between items-center mb-4">
                         <h3 class="text-lg font-semibold text-gray-900">Frequently Asked Questions</h3>
-                        <a href="{{ route('faq.create') }}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-                            Ask a Question
-                        </a>
                     </div>
                     <div class="space-y-4">
                         @forelse($faqs ?? [] as $faq)
@@ -71,20 +68,11 @@
                                 <div class="flex justify-between items-start">
                                     <div>
                                         <h4 class="font-medium text-gray-800">{{ $faq->question }}</h4>
-                                        <span class="text-sm text-gray-500">Category: {{ $faq->category }}</span>
-                                        <span class="text-sm text-gray-500 ml-2">Asked by: {{ $faq->user->name }}</span>
-                                        @if($faq->status === 'answered')
-                                            <p class="text-gray-600 mt-1">{{ $faq->answer }}</p>
-                                            <span class="text-sm text-gray-500">Answered by: {{ $faq->answeredBy->name }}</span>
-                                        @else
-                                            <p class="text-yellow-600 mt-1">Pending answer</p>
-                                        @endif
+                                        <p class="text-gray-600 mt-1">{{ $faq->answer }}</p>
                                     </div>
-                                    @if(auth()->user()->role === 'admin')
+                                    @if(auth()->user() && auth()->user()->role === 'admin')
                                         <div class="flex space-x-2">
-                                            @if($faq->status === 'pending')
-                                                <a href="{{ route('faq.edit', $faq) }}" class="text-blue-600 hover:text-blue-800">Answer</a>
-                                            @endif
+                                            <a href="{{ route('faq.edit', $faq) }}" class="text-blue-600 hover:text-blue-800">Edit</a>
                                             <form action="{{ route('faq.destroy', $faq) }}" method="POST" class="inline">
                                                 @csrf
                                                 @method('DELETE')

@@ -4,56 +4,60 @@ namespace App\Http\Controllers;
 
 use App\Models\FAQ;
 use Illuminate\Http\Request;
-use Illuminate\Http\RedirectResponse;
-use Illuminate\View\View;
-use Illuminate\Support\Facades\Auth;
-
 
 class FAQController extends Controller
 {
-    public function create(): View
+    public function index()
+    {
+        $faqs = FAQ::orderBy('category')
+                   ->get()
+                   ->groupBy('category');
+                   
+        return view('faq.index', compact('faqs'));
+    }
+
+    public function create()
     {
         return view('faq.create');
     }
 
-    public function store(Request $request): RedirectResponse
+    public function store(Request $request)
     {
         $validated = $request->validate([
             'category' => 'required|string|max:255',
-            'question' => 'required|string',
+            'question' => 'required|string|max:1000',
+            'answer' => 'required|string|max:5000'
         ]);
-
-        $validated['user_id'] = Auth::id();
-        $validated['status'] = 'pending';
 
         FAQ::create($validated);
 
-        return redirect()->route('dashboard')->with('status', 'question-submitted');
+        return redirect()->route('faq.index')
+                        ->with('status', 'FAQ created successfully.');
     }
 
-    public function edit(FAQ $faq): View
+    public function edit(FAQ $faq)
     {
         return view('faq.edit', compact('faq'));
     }
 
-    public function answer(Request $request, FAQ $faq): RedirectResponse
+    public function update(Request $request, FAQ $faq)
     {
         $validated = $request->validate([
-            'answer' => 'required|string'
+            'category' => 'required|string|max:255',
+            'question' => 'required|string|max:1000',
+            'answer' => 'required|string|max:5000'
         ]);
 
-        $faq->update([
-            'answer' => $validated['answer'],
-            'status' => 'answered',
-            'answered_by' => Auth::id()
-        ]);
+        $faq->update($validated);
 
-        return redirect()->route('dashboard')->with('status', 'faq-answered');
+        return redirect()->route('faq.index')
+                        ->with('status', 'FAQ updated successfully.');
     }
 
-    public function destroy(FAQ $faq): RedirectResponse
+    public function destroy(FAQ $faq)
     {
         $faq->delete();
-        return redirect()->route('dashboard')->with('status', 'faq-deleted');
+        return redirect()->route('faq.index')
+                        ->with('status', 'FAQ deleted successfully.');
     }
 }

@@ -4,15 +4,21 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Contact;
-use App\Mail\ContactFormMail;
-use Illuminate\Support\Facades\Mail;
 use App\Models\User;
+use App\Http\Controllers\Controller;
+
 
 class ContactController extends Controller
 {
+    
+    public function index()
+    {
+        $messages = Contact::latest()->paginate(10);
+        return view('contact.index', compact('messages'));
+    }
+
     public function create()
     {
-        // Get all admin users
         $admins = User::where('role', 'admin')->get();
         return view('contact.create', compact('admins'));
     }
@@ -27,11 +33,10 @@ class ContactController extends Controller
             'admin_email' => 'required|email|exists:users,email'
         ]);
 
-        $contact = Contact::create($validated);
-
-        // Send email to selected admin
-        Mail::to($validated['admin_email'])->send(new ContactFormMail($contact));
+        Contact::create($validated);
 
         return redirect()->back()->with('status', 'Message sent successfully!');
     }
+
+    
 }

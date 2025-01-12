@@ -19,6 +19,9 @@ Route::get('/dashboard', [NewsController::class, 'index'])
 Route::get('/contact', [ContactController::class, 'create'])->name('contact.create');
 Route::post('/contact', [ContactController::class, 'store'])->name('contact.store');
 
+// faq
+Route::get('/faq', [FAQController::class, 'index'])->name('faq.index');
+
 // profile
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -29,8 +32,8 @@ Route::middleware('auth')->group(function () {
 // admin
 Route::middleware(['auth', 'isAdmin'])->group(function () {
     Route::resource('admin/news', NewsController::class)->except(['index', 'show']);
-    Route::resource('admin/faq', FAQController::class)->except(['index', 'show']);
-    Route::get('/admin/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
-    Route::post('admin/faq/{faq}/answer', [FAQController::class, 'answer'])->name('faq.answer');
+    Route::get('/admin/messages', [ContactController::class, 'index'])->name('contact.index');
+    Route::resource('faq', FAQController::class)->except(['index']);
+
 });
 require __DIR__.'/auth.php';

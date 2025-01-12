@@ -18,6 +18,14 @@
                     <x-nav-link :href="route('contact.create')" :active="request()->routeIs('contact.create')">
                         {{ __('Contact Us') }}
                     </x-nav-link>
+                    <x-nav-link :href="route('faq.index')" :active="request()->routeIs('faq.index')">
+                        {{ __('FAQ') }}
+                    </x-nav-link>
+                    @if(Auth::user() && Auth::user()->role === 'admin')
+                        <x-nav-link :href="route('contact.index')" :active="request()->routeIs('contact.index')">
+                            {{ __('View Messages') }}
+                        </x-nav-link>
+                    @endif
                 </div>
             </div>
 
@@ -76,6 +84,11 @@
             <x-responsive-nav-link :href="route('contact.create')" :active="request()->routeIs('contact.create')">
                 {{ __('Contact Us') }}
             </x-responsive-nav-link>
+            @if (Auth::user()->role === 'admin')
+                <x-nav-link :href="route('contact.index')" :active="request()->routeIs('contact.index')">
+                    {{ __('Messages') }}
+                </x-nav-link>
+            @endif
         </div>
 
         <!-- Responsive Settings Options -->
