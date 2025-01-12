@@ -86,10 +86,10 @@ This is a Laravel-based web application that provides a news portal with user ma
 
 ## References & Credits
 
-[Laravel Documentation](https://laravel.com/docs)
-[Tailwind CSS](https://tailwindcss.com/)
-[Alpine.js](https://alpinejs.dev/)
-[Laravel Breeze](https://laravel.com/docs/starter-kits#laravel-breeze)
+1. [Laravel Documentation](https://laravel.com/docs)
+2. [Tailwind CSS](https://tailwindcss.com/)
+3. [Alpine.js](https://alpinejs.dev/)
+4. [Laravel Breeze](https://laravel.com/docs/starter-kits#laravel-breeze)
 
 
 
