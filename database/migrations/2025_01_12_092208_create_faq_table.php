@@ -15,7 +15,10 @@ return new class extends Migration
             $table->id();
             $table->string('category');
             $table->text('question');
-            $table->text('answer');
+            $table->text('answer')->nullable();
+            $table->string('status')->default('pending'); // pending, answered
+            $table->foreignId('user_id')->constrained(); // who asked the question
+            $table->foreignId('answered_by')->nullable()->constrained('users'); // admin who answered
             $table->timestamps();
         });
     }

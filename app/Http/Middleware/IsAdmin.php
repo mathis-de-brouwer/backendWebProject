@@ -11,16 +11,12 @@ use Illuminate\Support\Facades\Auth; // Import Auth facade cuz ide not happe w a
 
 class IsAdmin
 {
-    /**
-     * Handle an incoming request.
-     *
-     * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
-     */
+    
     public function handle($request, Closure $next)
-{
-    if (Auth::check() && Auth::user()->role !== 'admin') {
-        return redirect('/'); // Redirect non-admins
+    {
+        if (Auth::check() && Auth::user()->role !== 'admin') {
+            return redirect('/'); // Redirect non-admins
+        }
+        return $next($request);
     }
-    return $next($request);
-}
 }
