@@ -22,13 +22,23 @@
                         @forelse($news ?? [] as $item)
                             <div class="border-b pb-4">
                                 <div class="flex justify-between items-start">
-                                    <div>
+                                    <div class="w-full cursor-pointer" onclick="toggleNews(this)">
                                         <h4 class="font-medium text-gray-800">{{ $item->title }}</h4>
-                                        <p class="text-gray-600 mt-1">{{ $item->content }}</p>
+                                        <!-- Preview of content - show only first 100 characters -->
+                                        <p class="text-gray-600 mt-1 preview">{{ Str::limit($item->content, 100) }}</p>
+                                        <!-- Full content - hidden by default -->
+                                        <div class="hidden full-content">
+                                            @if($item->image)
+                                                <div class="my-4">
+                                                    <img src="{{ Storage::url($item->image) }}" alt="News Image" class="max-w-full h-auto rounded-lg shadow-md">
+                                                </div>
+                                            @endif
+                                            <p class="text-gray-600 mt-1">{{ $item->content }}</p>
+                                        </div>
                                         <span class="text-sm text-gray-500">{{ $item->created_at->diffForHumans() }}</span>
                                     </div>
                                     @if(auth()->user()->role === 'admin')
-                                        <div class="flex space-x-2">
+                                        <div class="flex space-x-2 ml-4">
                                             <a href="{{ route('news.edit', $item) }}" class="text-blue-600 hover:text-blue-800">Edit</a>
                                             <form action="{{ route('news.destroy', $item) }}" method="POST" class="inline">
                                                 @csrf
@@ -86,4 +96,18 @@
             </div>
         </div>
     </div>
+    <script>
+        function toggleNews(element) {
+            const preview = element.querySelector('.preview');
+            const fullContent = element.querySelector('.full-content');
+            
+            if (fullContent.classList.contains('hidden')) {
+                preview.classList.add('hidden');
+                fullContent.classList.remove('hidden');
+            } else {
+                preview.classList.remove('hidden');
+                fullContent.classList.add('hidden');
+            }
+        }
+    </script>
 </x-app-layout>
