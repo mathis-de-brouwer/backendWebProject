@@ -30,7 +30,7 @@ class FAQController extends Controller
 
     public function edit(FAQ $faq): View
     {
-        return view('faq.editfaq', compact('faq'));
+        return view('faq.edit', compact('faq'));
     }
 
     public function update(Request $request, FAQ $faq): RedirectResponse
