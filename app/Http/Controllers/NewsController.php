@@ -12,7 +12,6 @@ use Illuminate\Support\Facades\Storage;
 
 class NewsController extends Controller
 {
-    //Add methods for creating, updating, and deleting FAQs use isadmin for protec
     public function index()
     {
         $news = News::latest('publicationDate')->get();
@@ -36,13 +35,17 @@ class NewsController extends Controller
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048'
         ]);
 
+        $news = new News($validated);
+        $news->created_at = now(); //timestamp
+
         if ($request->hasFile('image')) {
-            $validated['image'] = $request->file('image')->store('news-images', 'public');
+            $news->image = $request->file('image')->store('news', 'public');
         }
 
-        News::create($validated);
+        $news->save();
 
-        return redirect()->route('dashboard')->with('status', 'news-created');
+        return redirect()->route('dashboard')
+                        ->with('status', 'News created successfully.');
     }
 
     public function edit(News $news): View
@@ -76,10 +79,10 @@ class NewsController extends Controller
         if ($news->image && Storage::disk('public')->exists($news->image)) {
             Storage::disk('public')->delete($news->image);
         }
-        
+
         $news->delete();
 
         return redirect()->route('dashboard')->with('status', 'news-deleted');
     }
-    
+
 }

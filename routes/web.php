@@ -22,6 +22,7 @@ Route::post('/contact', [ContactController::class, 'store'])->name('contact.stor
 // faq
 Route::get('/faq', [FAQController::class, 'index'])->name('faq.index');
 
+
 // profile
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

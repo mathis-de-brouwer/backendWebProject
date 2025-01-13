@@ -35,8 +35,9 @@
                                             @endif
                                             <p class="text-gray-600 mt-1">{{ $item->content }}</p>
                                         </div>
-                                        <span class="text-sm text-gray-500">{{ $item->created_at->diffForHumans() }}</span>
-                                    </div>
+                                        <span class="text-sm text-gray-500">
+                                            {{ $item->created_at ? $item->created_at->diffForHumans() : 'Date not available' }}
+                                        </span>                                    </div>
                                     @if(auth()->user()->role === 'admin')
                                         <div class="flex space-x-2 ml-4">
                                             <a href="{{ route('news.edit', $item) }}" class="text-blue-600 hover:text-blue-800">Edit</a>
@@ -94,7 +95,7 @@
         function toggleNews(element) {
             const preview = element.querySelector('.preview');
             const fullContent = element.querySelector('.full-content');
-            
+
             if (fullContent.classList.contains('hidden')) {
                 preview.classList.add('hidden');
                 fullContent.classList.remove('hidden');

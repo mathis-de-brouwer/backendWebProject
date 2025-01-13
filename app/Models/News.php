@@ -13,7 +13,9 @@ class News extends Model
         'publicationDate'
     ];
 
-    protected $casts = [
-        'publicationDate' => 'datetime'
+    protected $dates = [
+        'created_at',
+        'updated_at',
+        'publicationDate'
     ];
 }

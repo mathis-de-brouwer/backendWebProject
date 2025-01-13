@@ -12,7 +12,7 @@ class FAQController extends Controller
         $faqs = FAQ::orderBy('category')
                    ->get()
                    ->groupBy('category');
-                   
+
         return view('faq.index', compact('faqs'));
     }
 

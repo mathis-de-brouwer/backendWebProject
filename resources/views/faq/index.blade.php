@@ -2,13 +2,15 @@
     <x-slot name="header">
         <div class="flex justify-between">
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-                {{ __('FAQ Management') }}
+                {{ __('FAQ') }}
             </h2>
-            @if(auth()->user() && auth()->user()->role === 'admin')
-            <x-primary-button onclick="window.location='{{ route('faq.create') }}'">
-                {{ __('Add New FAQ') }}
-            </x-primary-button>
-            @endif
+            @auth
+                @if(auth()->user()->role === 'admin')
+                    <x-primary-button onclick="window.location='{{ route('faq.create') }}'">
+                        {{ __('Add New FAQ') }}
+                    </x-primary-button>
+                @endif
+            @endauth
         </div>
     </x-slot>
 
